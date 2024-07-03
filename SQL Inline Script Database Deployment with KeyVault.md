@@ -6,6 +6,7 @@ pool:
 
 steps:
 
+# Deploy an Azure SQL Database using DACPAC or run scripts using SQLCMD.
 - task: SqlAzureDacpacDeployment@1
   inputs:
     azureSubscription: 'HurtadoManualConnection'
@@ -18,11 +19,11 @@ steps:
     SqlInline: 'SELECT * FROM STUDENT'
     IpDetectionMethod: 'AutoDetect'
 
-
+# Download Azure Key Vault secrets.
 - task: AzureKeyVault@2
   inputs:
-    azureSubscription: 'HurtadoManualConnection'
-    KeyVaultName: 'HurtadoKV'
-    SecretsFilter: '*'
-    RunAsPreJob: true
+    azureSubscription: 'HurtadoManualConnection'    # string. Alias: ConnectedServiceName. Required. Azure subscription.
+    KeyVaultName: 'HurtadoKV'                       # string. Required. Key vault. 
+    SecretsFilter: '*'                              # string. Required. Secrets filter. Default: *.
+    RunAsPreJob: true                               # boolean. Make secrets available to whole job. Default: false.
 ```
